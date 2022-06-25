@@ -20,5 +20,27 @@ public class intro {
         if (!remainderIsZero) {
             System.out.println("Got some remainder");
         }
+
+        displayHighScorePosition("Bob", calculateHighScorePosition(1500));
+        displayHighScorePosition("Jack", calculateHighScorePosition(900));
+        displayHighScorePosition("Tom", calculateHighScorePosition(400));
+        displayHighScorePosition("Dan", calculateHighScorePosition(50));
+
+    }
+
+    public static void displayHighScorePosition(String name, int position){
+        System.out.printf("%s managed to get into position %d\n", name, position);
+    }
+
+    public static int calculateHighScorePosition(int score){
+        int position = 4;
+        if (score > 1000){
+            position = 1;
+        } else if (score > 500) {
+            position = 2;
+        } else if (score > 100) {
+            position = 3;
+        }
+        return position;
     }
 }
