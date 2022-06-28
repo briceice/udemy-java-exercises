@@ -26,6 +26,10 @@ public class intro {
         displayHighScorePosition("Tom", calculateHighScorePosition(400));
         displayHighScorePosition("Dan", calculateHighScorePosition(50));
 
+        // Seconds and minutes Challenge
+        System.out.println(getDurationString(65,30));
+        System.out.println(getDurationString(4201));
+
     }
 
     public static void displayHighScorePosition(String name, int position){
@@ -42,5 +46,23 @@ public class intro {
             position = 3;
         }
         return position;
+    }
+
+    public static String getDurationString(int minutes, int seconds){
+        if (minutes < 0 || seconds < 0 || seconds > 59){
+            return "Invalid value";
+        }
+        int hours = minutes / 60;
+        int remainderMinutes = minutes % 60;
+        return hours + "h " + remainderMinutes + "m " + seconds + "s";
+    }
+
+    public static String getDurationString(int seconds){
+        if (seconds < 0){
+            return "Invalid value";
+        }
+        int minutes = seconds / 60;
+        int remainderSeconds = seconds % 60;
+        return getDurationString(minutes, remainderSeconds);
     }
 }
