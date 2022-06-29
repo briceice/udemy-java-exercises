@@ -53,6 +53,28 @@ public class Exercises {
 
         System.out.println(isTeen(9));  //should return false since 9 is in not range 13 - 19
         System.out.println(isTeen(13));  //should return true since 13 is in range 13 - 19
+
+        // Exercise 8
+        System.out.println(area(5.0)); //should return 78.53975
+        System.out.println(area(-1));  ///should return -1 since the parameter is negative
+        System.out.println(area(5.0, 4.0)); //should return 20.0 (5 * 4 = 20)
+        System.out.println(area(-1.0, 4.0));  //should return -1 since first the parameter is negative
+
+        // Exercise 9
+        printYearsAndDays(525600);  //→ should print "525600 min = 1 y and 0 d"
+        printYearsAndDays(1051200); //→ should print "1051200 min = 2 y and 0 d"
+        printYearsAndDays(561600);  //→ should print "561600 min = 1 y and 25 d"
+
+        // Exercise 10
+        printEqual(1, 1, 1); //should print text All numbers are equal
+        printEqual(1, 1, 2); //should print text Neither all are equal or different
+        printEqual(-1, -1, -1); //should print text Invalid Value
+        printEqual(1, 2, 3); //should print text All numbers are different
+
+        // Exercise 11
+        System.out.println(isCatPlaying(true, 10)); //should return false since temperature is not in range 25 - 45
+        System.out.println(isCatPlaying(false, 36)); //should return false since temperature is not in range 25 - 35 (summer parameter is false)
+        System.out.println(isCatPlaying(false, 35)); //should return true since temperature is in range 25 - 35
     }
 
     // Exercise 1
@@ -141,5 +163,57 @@ public class Exercises {
             }
         }
         return false;
+    }
+
+    // Exercise 8
+    public static double area(double radius){
+        if (radius < 0){
+            return -1.0;
+        }
+        return Math.PI * Math.pow(radius, 2);
+    }
+
+    public static double area(double x, double y){
+        if (x < 0 || y < 0){
+            return -1.0;
+        }
+        return x * y;
+    }
+
+    // Exercise 9
+    public static void printYearsAndDays(long minutes){
+        if (minutes < 0){
+            System.out.println("Invalid Value");
+            return;
+        }
+        int years = (int) (minutes / 525600);
+        int days = (int) ((minutes % 525600) / 1440);
+        System.out.println(minutes + " min = " + years + " y and " + days + " d");
+    }
+
+    // Exercise 10
+    public static void printEqual(int x, int y, int z){
+        if (x < 0 || y < 0 || z < 0){
+            System.out.println("Invalid Value");
+            return;
+        }
+        if (x == y && x == z){
+            System.out.println("All numbers are equal");
+            return;
+        }
+        if (x != y && x != z && y != z){
+            System.out.println("All numbers are different");
+            return;
+        }
+        System.out.println("Neither all are equal or different");
+    }
+
+    // Exercise 11
+    public static boolean isCatPlaying(boolean summer, int temperature){
+        if (summer){
+            return temperature >= 25 && temperature <= 45;
+        } else {
+            return temperature >= 25 && temperature <= 35;
+        }
     }
 }
