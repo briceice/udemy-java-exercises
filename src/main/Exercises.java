@@ -88,6 +88,27 @@ public class Exercises {
         System.out.println(sumOdd(100, -100)); //→ should return -1
         System.out.println(sumOdd(100, 1000)); //→ should return 247500
 
+        // Exercise 15
+        System.out.println(isPalindrome(-1221)); //→ should return true
+        System.out.println(isPalindrome(707)); //→ should return true
+        System.out.println(isPalindrome(11212)); //→ should return false because reverse is 21211 and that is not equal to 11212.
+
+        // Exercise 16
+        System.out.println(sumFirstAndLastDigit(252)); //→ should return 4, the first digit is 2 and the last is 2 which gives us 2+2 and the sum is 4.
+        System.out.println(sumFirstAndLastDigit(257)); //→ should return 9, the first digit is 2 and the last is 7 which gives us 2+7 and the sum is 9.
+        System.out.println(sumFirstAndLastDigit(0)); //→ should return 0, the first digit and the last digit is 0 since we only have 1 digit, which gives us 0+0 and the sum is 0.
+        System.out.println(sumFirstAndLastDigit(5)); //→ should return 10, the first digit and the last digit is 5 since we only have 1 digit, which gives us 5+5 and the sum is 10.
+        System.out.println(sumFirstAndLastDigit(-10)); //→ should return -1, since the parameter is negative and needs to be positive.
+
+        // Exercise 17
+        System.out.println(getEvenDigitSum(123456789)); //→ should return 20 since 2 + 4 + 6 + 8 = 20
+        System.out.println(getEvenDigitSum(252)); //→ should return 4 since 2 + 2 = 4
+        System.out.println(getEvenDigitSum(-22)); //→ should return -1 since the number is negative
+
+        // Exercise 18
+        System.out.println(hasSharedDigit(12, 23)); //→ should return true since the digit 2 appears in both numbers
+        System.out.println(hasSharedDigit(9, 99)); //→ should return false since 9 is not within the range of 10-99
+        System.out.println(hasSharedDigit(15, 55)); //→ should return true since the digit 5 appears in both numbers
     }
 
     // Exercise 1
@@ -320,5 +341,78 @@ public class Exercises {
             }
         }
         return sum;
+    }
+
+    // Exercise 15
+    public static boolean isPalindrome(int number){
+        String num = String.valueOf(Math.abs(number));
+        String numReverse = "";
+        for (int i = (num.length() - 1); i >= 0; i--) {
+            numReverse += num.charAt(i);
+        }
+        return num.equals(numReverse);
+    }
+
+    // Exercise 16
+    public static int sumFirstAndLastDigit(int number){
+        int firstDigit = number;
+        int lastDigit = number % 10;
+
+        if (number < 0){
+            return -1;
+        }
+
+        while (number > 0){
+            firstDigit = number % 10;
+            number /= 10;
+        }
+
+        return firstDigit + lastDigit;
+    }
+
+    // Exercise 17
+    public static int getEvenDigitSum(int number){
+        if (number < 0){
+            return -1;
+        }
+
+        int digit;
+        int sum = 0;
+
+        while (number > 0){
+            digit = number % 10;
+            if (digit % 2 == 0){
+                sum += digit;
+            }
+            number /= 10;
+        }
+
+        return sum;
+    }
+
+    // Exercise 18
+    public static boolean hasSharedDigit(int num1, int num2){
+        if (num1 < 10 || num1 > 99 || num2 < 10 || num2 > 99){
+            return false;
+        }
+
+        int digit1;
+        int digit2;
+        int numSave = num2;
+
+        while (num1 > 0){
+            digit1 = num1 % 10;
+            while (num2 > 0){
+                digit2 = num2 % 10;
+                if (digit1 == digit2){
+                    return true;
+                }
+                num2 /= 10;
+            }
+            num1 /= 10;
+            num2 = numSave;
+        }
+
+        return false;
     }
 }
