@@ -109,6 +109,49 @@ public class Exercises {
         System.out.println(hasSharedDigit(12, 23)); //→ should return true since the digit 2 appears in both numbers
         System.out.println(hasSharedDigit(9, 99)); //→ should return false since 9 is not within the range of 10-99
         System.out.println(hasSharedDigit(15, 55)); //→ should return true since the digit 5 appears in both numbers
+
+        // Exercise 19
+        System.out.println(hasSameLastDigit(41, 22, 71)); //→ should return true since 1 is the rightmost digit in numbers 41 and 71
+        System.out.println(hasSameLastDigit(23, 32, 42)); //→ should return true since 2 is the rightmost digit in numbers 32 and 42
+        System.out.println(hasSameLastDigit(9, 99, 999)); //→ should return false since 9 is not within the range of 10-1000
+
+        System.out.println(isValid(10)); //→ should return true since 10 is within the range of 10-1000
+        System.out.println(isValid(468)); //→ should return true since 468 is within the range of 10-1000
+        System.out.println(isValid(1051)); //→ should return false since 1051 is not within the range of 10-1000
+
+        // Exercise 20
+        System.out.println(getGreatestCommonDivisor(25, 15)); //should return 5 since both can be divided by 5 without a remainder
+        System.out.println(getGreatestCommonDivisor(12, 30)); //should return 6 since both can be divided by 6 without a remainder
+        System.out.println(getGreatestCommonDivisor(9, 18)); //should return -1 since the first parameter is < 10
+        System.out.println(getGreatestCommonDivisor(81, 153)); //should return 9 since both can be divided by 9 without a remainder
+
+        // Exercise 21
+        printFactors(6); //→ should print 1 2 3 6
+        printFactors(32); //→ should print 1 2 4 8 16 32
+        printFactors(10); //→ should print 1 2 5 10
+        printFactors(-1); //→ should print "Invalid Value" since number is < 1
+
+        // Exercise 22
+        System.out.println(isPerfectNumber(6)); //should return true since its proper divisors are 1, 2, 3 and the sum is 1 + 2 + 3 = 6
+        System.out.println(isPerfectNumber(28)); //should return true since its proper divisors are 1, 2, 4, 7, 14 and the sum is 1 + 2 + 4 + 7 + 14 = 28
+        System.out.println(isPerfectNumber(5)); //should return false since its only proper divisor is 1 and the sum is 1 not 5
+        System.out.println(isPerfectNumber(-1)); //should return false since the number is < 1
+
+        // Exercise 23
+        System.out.println(getDigitCount(0)); //should return 1 since there is only 1 digit
+        System.out.println(getDigitCount(123)); //should return 3
+        System.out.println(getDigitCount(-12)); //should return -1 since the parameter is negative
+        System.out.println(getDigitCount(5200)); //should return 4 since there are 4 digits in the number
+
+        System.out.println(reverse(-121)); //should  return -121
+        System.out.println(reverse(1212)); //should return  2121
+        System.out.println(reverse(1234)); //should return 4321
+        System.out.println(reverse(100)); //should return 1
+
+        numberToWords(123); //should print "One Two Three".
+        numberToWords(1010); //should print "One Zero One Zero".
+        numberToWords(1000); //should print "One Zero Zero Zero".
+        numberToWords(-12); //should print "Invalid Value" since the parameter is negative.
     }
 
     // Exercise 1
@@ -346,11 +389,11 @@ public class Exercises {
     // Exercise 15
     public static boolean isPalindrome(int number){
         String num = String.valueOf(Math.abs(number));
-        String numReverse = "";
+        StringBuilder numReverse = new StringBuilder();
         for (int i = (num.length() - 1); i >= 0; i--) {
-            numReverse += num.charAt(i);
+            numReverse.append(num.charAt(i));
         }
-        return num.equals(numReverse);
+        return num.equals(numReverse.toString());
     }
 
     // Exercise 16
@@ -414,5 +457,126 @@ public class Exercises {
         }
 
         return false;
+    }
+
+    // Exercise 19
+    public static boolean hasSameLastDigit(int x, int y, int z){
+        if (!isValid(x) || !isValid(y) || !isValid(z)){
+            return false;
+        }
+        int xDigit = x % 10;
+        int yDigit = y % 10;
+        int zDigit = z % 10;
+
+        return xDigit == yDigit || xDigit == zDigit || yDigit == zDigit;
+    }
+
+    public static boolean isValid(int number){
+        return number >= 10 && number <= 1000;
+    }
+
+    // Exercise 20
+    public static int getGreatestCommonDivisor(int first, int second){
+        if (first < 10 || second < 10){
+            return -1;
+        }
+
+        if (first > second){
+            for (int i = second; i > 0; i--) {
+                if (first % i == 0 && second % i == 0){
+                    return i;
+                }
+            }
+        } else {
+            for (int i = first; i > 0; i--) {
+                if (first % i == 0 && second % i == 0){
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    // Exercise 21
+    public static void printFactors(int number){
+        if (number < 1){
+            System.out.println("Invalid Value");
+        }
+
+        for (int i = 1; i <= number; i++) {
+            if (number % i == 0){
+                System.out.println(i);
+            }
+        }
+    }
+
+    // Exercise 22
+    public static boolean isPerfectNumber(int number){
+        if (number < 1){
+            return false;
+        }
+
+        int sum = 0;
+
+        for (int i = 1; i < number; i++) {
+            if (number % i == 0){
+                sum += i;
+            }
+        }
+
+        return number == sum;
+    }
+
+    // Exercise 23
+    public static void numberToWords(int number){
+        if (number < 0){
+            System.out.println("Invalid Value");
+        }
+
+        int digit;
+        int numReverse = reverse(number);
+        int digitCount = getDigitCount(number);
+
+        while (digitCount > 0){
+            digit = numReverse % 10;
+            printNumberInWord(digit);
+            numReverse /= 10;
+            digitCount --;
+        }
+
+    }
+
+    public static int reverse(int number){
+        String num = String.valueOf(Math.abs(number));
+        StringBuilder stringReverse = new StringBuilder();
+        boolean isNegative = number < 0;
+        for (int i = (num.length() - 1); i >= 0; i--) {
+            stringReverse.append(num.charAt(i));
+        }
+        if (isNegative){
+            return -Integer.parseInt(stringReverse.toString());
+        } else {
+            return Integer.parseInt(stringReverse.toString());
+        }
+    }
+
+    public static int getDigitCount(int number){
+        if (number < 0){
+            return -1;
+        }
+
+        int count = 0;
+
+        if (number == 0){
+            count = 1;
+        }
+
+        while (number > 0){
+            count ++;
+            number /= 10;
+        }
+
+        return count;
     }
 }
