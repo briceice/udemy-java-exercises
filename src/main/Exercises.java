@@ -655,7 +655,7 @@ public class Exercises {
                     }
                     else System.out.print(" ");
                 }
-                System.out.println("");
+                System.out.println();
             }
         }
     }
