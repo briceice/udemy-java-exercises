@@ -152,6 +152,26 @@ public class Exercises {
         numberToWords(1010); //should print "One Zero One Zero".
         numberToWords(1000); //should print "One Zero Zero Zero".
         numberToWords(-12); //should print "Invalid Value" since the parameter is negative.
+
+        // Exercise 24
+        System.out.println(canPack(1, 0, 4)); //should return false since bigCount is 1 (big bag of 5 kilos) and goal is 4 kilos.
+        System.out.println(canPack(1, 0, 5)); //should return true since bigCount is 1 (big bag of 5 kilos) and goal is 5 kilos.
+        System.out.println(canPack(0, 5, 4)); //should return true since smallCount is 5 (small bags of 1 kilo) and goal is 4 kilos, and we have 1 bag left which is ok as mentioned above.
+        System.out.println(canPack(2, 2, 11)); //should return true since bigCount is 2 (big bags 5 kilos each) and smallCount is 2 (small bags of 1 kilo), makes in total 12 kilos and goal is 11 kilos.
+        System.out.println(canPack(-3, 2, 12)); //should return false since bigCount is negative.
+
+        // Exercise 25
+        System.out.println(getLargestPrime(21)); //should return 7 since 7 is the largest prime (3 * 7 = 21)
+        System.out.println(getLargestPrime(217)); //should return 31 since 31 is the largest prime (7 * 31 = 217)
+        System.out.println(getLargestPrime(0)); //should return -1 since 0 does not have any prime numbers
+        System.out.println(getLargestPrime(45)); //should return 5 since 5 is the largest prime (3 * 3 * 5 = 45)
+        System.out.println(getLargestPrime(-1)); //should return -1 since the parameter is negative
+        System.out.println(getLargestPrime(16)); //should return 2 since 2 is the largest prime (2 * 8 = 16)
+
+        // Exercise 26
+        printSquareStar(5);
+        printSquareStar(8);
+        printSquareStar(2);
     }
 
     // Exercise 1
@@ -578,5 +598,65 @@ public class Exercises {
         }
 
         return count;
+    }
+
+    // Exercise 24
+    public static boolean canPack(int bigCount, int smallCount, int goal){
+        if (bigCount < 0 || smallCount < 0 || goal < 0){
+            return false;
+        }
+        if (goal / 5 <= bigCount){
+            return smallCount >= goal % 5;
+        } else if(goal - 5*bigCount <= smallCount){
+            return true;
+        } else {
+            return smallCount >= goal;
+        }
+    }
+
+    // Exercise 25
+    public static int getLargestPrime(int number){
+        if (number < 0){
+            return -1;
+        }
+        for (int i = number; i > 0; i--) {
+            if (number % i == 0){
+                if (isPrime(i)){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    static boolean isPrime(int n)
+    {
+        // Corner case
+        if (n <= 1)
+            return false;
+
+        // Check from 2 to n-1
+        for (int i = 2; i < n; i++)
+            if (n % i == 0)
+                return false;
+
+        return true;
+    }
+
+    // Exercise 26
+    public static void printSquareStar(int number){
+        if (number < 5){
+            System.out.println("Invalid Value");
+        } else {
+            for (int i = 1; i <= number; i++) {
+                for (int j = 1; j <= number ; j++) {
+                    if (i==1 || i==number || j==1 || j==number || j==i || j==number-i+1){
+                        System.out.print("*");
+                    }
+                    else System.out.print(" ");
+                }
+                System.out.println("");
+            }
+        }
     }
 }
